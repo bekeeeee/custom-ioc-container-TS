@@ -19,7 +19,6 @@ export class IoCContainer {
     }
     let dependenciesImplementations =
       this.getDependenciesImplementations(dependencies);
-
     this._dependencies[name] = new implementation(
       ...dependenciesImplementations
     );
@@ -33,7 +32,7 @@ export class IoCContainer {
     return this._dependencies[name] as T;
   }
 
-  private getDependenciesImplementations(names: string[]): Object[] {
-    return names.map((name) => this.resolve(name));
+  private getDependenciesImplementations(dependencies: string[]): Object[] {
+    return dependencies.map((dependencie) => this.resolve(dependencie));
   }
 }

@@ -35,9 +35,9 @@ var IoCContainer = /** @class */ (function () {
         }
         return this._dependencies[name];
     };
-    IoCContainer.prototype.getDependenciesImplementations = function (names) {
+    IoCContainer.prototype.getDependenciesImplementations = function (dependencies) {
         var _this = this;
-        return names.map(function (name) { return _this.resolve(name); });
+        return dependencies.map(function (dependencie) { return _this.resolve(dependencie); });
     };
     IoCContainer._instance = new IoCContainer();
     return IoCContainer;
