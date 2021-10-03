@@ -1,4 +1,4 @@
-import { IoCContainer } from "./ioc-container";
+import { IoCContainer, Register } from "./ioc-container";
 
 interface IDepA {
   a: string;
@@ -15,13 +15,14 @@ interface IDepC {
   doC(): void;
 }
 
+@Register("IDepA", [])
 class ConcreteA implements IDepA {
   a = "a";
   doA(): void {
     console.log(`Doing ${this.a}`);
   }
 }
-
+@Register("IDepB", [])
 class ConcreteB implements IDepB {
   b = "b";
 
@@ -30,6 +31,7 @@ class ConcreteB implements IDepB {
   }
 }
 
+@Register("IDepC", ["IDepA", "IDepB"])
 class ConcreteC implements IDepC {
   constructor(private _concreteA: IDepA, private _concreteB: IDepB) {}
 
@@ -37,13 +39,11 @@ class ConcreteC implements IDepC {
     this._concreteA.doA();
     this._concreteB.doB();
     console.log("Doing C");
+
   }
 }
 
 let container = IoCContainer.instance;
-container.register("IDepA", [], ConcreteA);
-container.register("IDepB", [], ConcreteB);
-container.register("IDepC", ["IDepA", "IDepB"], ConcreteC);
 
 let c = container.resolve<IDepC>("IDepC");
 c.doC();
